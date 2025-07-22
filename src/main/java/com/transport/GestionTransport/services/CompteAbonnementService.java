@@ -77,5 +77,60 @@ public class CompteAbonnementService {
         if (result.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(result);
     }
+
+    //changer le status d'abonnement mannuellement
+    public ResponseEntity<?> changerStatus(Long id, String nouveauStatus) {
+        CompteAbonnement abonnement = compteAbonnementRepository.findById(id).orElse(null);
+        if (abonnement == null) return ResponseEntity.notFound().build();
+
+        abonnement.setStatusAbonnement(nouveauStatus);
+        compteAbonnementRepository.save(abonnement);
+        return ResponseEntity.ok(abonnement);
+    }
+
+    // Mise à jour globale des statuts d'abonnement
+    public ResponseEntity<?> mettreAJourTousLesStatuts() {
+        List<CompteAbonnement> abonnements = compteAbonnementRepository.findAll();
+        for (CompteAbonnement abonnement : abonnements) {
+            boolean estValide = abonnement.getDateDebutAbonnement().before(new java.util.Date()) &&
+                    abonnement.getDateFinAbonnement().after(new java.util.Date());
+
+            if (estValide && !"Actif".equalsIgnoreCase(abonnement.getStatusAbonnement())) {
+                abonnement.setStatusAbonnement("Actif");
+                compteAbonnementRepository.save(abonnement);
+            } else if (!estValide && !"Expiré".equalsIgnoreCase(abonnement.getStatusAbonnement())) {
+                abonnement.setStatusAbonnement("Expiré");
+                compteAbonnementRepository.save(abonnement);
+            }
+        }
+        return ResponseEntity.ok("Statuts des abonnements mis à jour.");
+    }
+
+
+    //Liste d'abonnement d'un client donné
+    public ResponseEntity<?> getAbonnementsParClient(Long clientId) {
+        Client client = clientRepository.findById(clientId).orElse(null);
+        if (client == null) return ResponseEntity.badRequest().body("Client introuvable.");
+
+        List<CompteAbonnement> abonnements = compteAbonnementRepository.findAllByClient(client);
+        return ResponseEntity.ok(abonnements);
+    }
+
+    //Vérifie la validité d'un compte
+    public ResponseEntity<?> verifierValiditeAbonnement(Long id) {
+        CompteAbonnement abonnement = compteAbonnementRepository.findById(id).orElse(null);
+        if (abonnement == null) return ResponseEntity.notFound().build();
+
+        boolean estValide = abonnement.getDateDebutAbonnement().before(new java.util.Date()) &&
+                abonnement.getDateFinAbonnement().after(new java.util.Date());
+
+        return ResponseEntity.ok(estValide ? "Abonnement valide." : "Abonnement expiré.");
+    }
+
+    //Nombre d'abonnement actifs
+    public long compterAbonnementsActifs() {
+        return compteAbonnementRepository.countByStatusAbonnementIgnoreCase("Actif");
+    }
+
 }
 

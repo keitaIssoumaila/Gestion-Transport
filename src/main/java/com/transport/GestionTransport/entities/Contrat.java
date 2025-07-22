@@ -19,8 +19,8 @@ public class Contrat {
     private String reference;
 
     @ManyToOne
-    @JoinColumn(name = "propriétaire_id")
-    private Proprietaire propriétaire;
+    @JoinColumn(name = "proprietaire_id")
+    private Proprietaire proprietaire;
 
     @ManyToOne
     @JoinColumn(name = "entreprise_id")

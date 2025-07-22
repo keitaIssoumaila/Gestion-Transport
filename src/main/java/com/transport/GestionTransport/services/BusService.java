@@ -27,7 +27,7 @@ public class BusService {
         System.out.println("🚀 Début création Bus");
         try {
             Bus bus = new Bus();
-            bus.setNMatricule(busDTO.getNMatricule());
+            bus.setMatricule(busDTO.getMatricule());
             bus.setDate(busDTO.getDate());
             bus.setTypeBus(busDTO.getTypeBus());
             bus.setNombrePlace(busDTO.getNombrePlace());
@@ -55,7 +55,7 @@ public class BusService {
         if (bus == null) {
             return ResponseEntity.notFound().build();
         } else {
-            bus.setNMatricule(busDTO.getNMatricule());
+            bus.setMatricule(busDTO.getMatricule());
             bus.setDate(busDTO.getDate());
             bus.setTypeBus(busDTO.getTypeBus());
             bus.setNombrePlace(busDTO.getNombrePlace());
@@ -85,7 +85,7 @@ public class BusService {
     }
 
     public ResponseEntity<?> searchBus(String query) {
-        List<Bus> busList = busRepository.findByNMatriculeContainingIgnoreCase(query);
+        List<Bus> busList = busRepository.findByMatriculeContainingIgnoreCase(query);
         if (busList.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {

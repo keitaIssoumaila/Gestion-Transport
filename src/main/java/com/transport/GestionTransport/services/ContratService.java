@@ -41,7 +41,7 @@ public class ContratService {
         Contrat contrat = new Contrat();
         contrat.setDateContrat(dto.getDateContrat());
         contrat.setReference(dto.getReference());
-        contrat.setPropriétaire(proprietaire);
+        contrat.setProprietaire(proprietaire);
         contrat.setEntreprise(entreprise);
 
         contratRepository.save(contrat);
@@ -58,7 +58,7 @@ public class ContratService {
         if (dto.getProprietaireId() != null) {
             Proprietaire proprietaire = proprietaireRepository.findById(dto.getProprietaireId()).orElse(null);
             if (proprietaire == null) return ResponseEntity.badRequest().body(" Propriétaire non trouvé.");
-            contrat.setPropriétaire(proprietaire);
+            contrat.setProprietaire(proprietaire);
         }
 
         if (dto.getEntrepriseId() != null) {

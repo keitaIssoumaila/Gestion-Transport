@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class BusDTO {
     private Long id;
-    private String nMatricule;
+    private String matricule;
     private Date date;
     private String typeBus;
     private int nombrePlace;

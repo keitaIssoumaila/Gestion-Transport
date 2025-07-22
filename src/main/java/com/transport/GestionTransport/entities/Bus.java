@@ -15,7 +15,7 @@ public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nMatricule;
+    private String matricule;
     private Date date;
     private String typeBus;
     private int nombrePlace;

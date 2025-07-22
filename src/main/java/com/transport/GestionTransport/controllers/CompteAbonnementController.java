@@ -48,5 +48,35 @@ public class CompteAbonnementController {
     public ResponseEntity<?> searchAbonnement(@RequestParam String query) {
         return compteAbonnementService.searchAbonnement(query);
     }
+
+    @GetMapping("verifier-validite/{id}")
+    public ResponseEntity<?> verifierValidite(@PathVariable Long id) {
+        return compteAbonnementService.verifierValiditeAbonnement(id);
+    }
+
+    //changer le status d'abonnement mannuellement
+    @PutMapping("changer-status/{id}")
+    public ResponseEntity<?> changerStatus(@PathVariable Long id, @RequestParam String status) {
+        return compteAbonnementService.changerStatus(id, status);
+    }
+
+    // Mise à jour globale des statuts d'abonnement
+    @PutMapping("/mise-a-jour-status")
+    public ResponseEntity<?> mettreAJourTousLesStatuts() {
+        return compteAbonnementService.mettreAJourTousLesStatuts();
+    }
+
+    // ✅ Lister les abonnements d’un client donné
+    @GetMapping("par-client/{clientId}")
+    public ResponseEntity<?> getAbonnementsParClient(@PathVariable Long clientId) {
+        return compteAbonnementService.getAbonnementsParClient(clientId);
+    }
+
+    // ✅ Compter le nombre d’abonnements actifs
+    @GetMapping("actifs/count")
+    public ResponseEntity<?> compterAbonnementsActifs() {
+        long count = compteAbonnementService.compterAbonnementsActifs();
+        return ResponseEntity.ok(count);
+    }
 }
 
