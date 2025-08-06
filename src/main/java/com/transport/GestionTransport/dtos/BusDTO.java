@@ -1,4 +1,4 @@
-package com.transport.GestionTransport.ditos;
+package com.transport.GestionTransport.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,13 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContratDTO {
+public class BusDTO {
     private Long id;
-    private LocalDate dateContrat;
-    private String reference;
+    private String matricule;
+    private LocalDate date;
+    private String typeBus;
+    private int nombrePlace;
+    private String status;
     private Long proprietaireId;
-    private Long entrepriseId;
 }
 

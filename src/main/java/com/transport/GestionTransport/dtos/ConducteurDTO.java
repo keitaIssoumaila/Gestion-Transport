@@ -1,7 +1,5 @@
-package com.transport.GestionTransport.entities;
+package com.transport.GestionTransport.dtos;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,13 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Conducteur {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ConducteurDTO {
     private Long id;
     private String nom;
     private String prenom;
@@ -23,11 +18,6 @@ public class Conducteur {
     private LocalDate dateNaissance;
     @Size(min = 8, max = 8)
     private String telephone;
-
-    @OneToOne
-    @JoinColumn(name = "bus_id")
-    @JsonBackReference
-    private Bus bus;
-
+    private Long busId;
 }
 

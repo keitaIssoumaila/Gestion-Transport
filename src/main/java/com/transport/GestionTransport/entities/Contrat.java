@@ -1,5 +1,6 @@
 package com.transport.GestionTransport.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +21,11 @@ public class Contrat {
 
     @ManyToOne
     @JoinColumn(name = "proprietaire_id")
+    @JsonBackReference
     private Proprietaire proprietaire;
 
     @ManyToOne
     @JoinColumn(name = "entreprise_id")
+    @JsonBackReference
     private Entreprise entreprise;
 }

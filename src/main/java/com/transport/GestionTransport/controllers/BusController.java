@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.controllers;
 
-import com.transport.GestionTransport.ditos.BusDTO;
+import com.transport.GestionTransport.dtos.BusDTO;
 import com.transport.GestionTransport.entities.Bus;
 import com.transport.GestionTransport.services.BusService;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,6 @@ public class BusController {
     public ResponseEntity<?> getBusById(@PathVariable Long id) {
         return busService.getBusById(id);
     }
-
     @PostMapping(path = "creer")
     public ResponseEntity<?> createBus(@RequestBody BusDTO busDTO) {
         return busService.createBus(busDTO);
@@ -46,4 +45,5 @@ public class BusController {
     public ResponseEntity<?> deleteBus(@PathVariable Long id) {
         return busService.deleteBus(id);
     }
+
 }

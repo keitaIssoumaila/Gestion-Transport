@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.EntrepriseDTO;
+import com.transport.GestionTransport.dtos.EntrepriseDTO;
 import com.transport.GestionTransport.entities.Entreprise;
 import com.transport.GestionTransport.repositories.EntrepriseRepository;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,6 @@ public class EntrepriseService {
         entreprise.setNom(dto.getNom());
         entreprise.setAdresse(dto.getAdresse());
         entreprise.setLogo(dto.getLogo());
-        entreprise.setTelephone(dto.getTelephone());
         entreprise.setEmail(dto.getEmail());
 
         entrepriseRepository.save(entreprise);
@@ -41,7 +40,6 @@ public class EntrepriseService {
         entreprise.setNom(dto.getNom());
         entreprise.setAdresse(dto.getAdresse());
         entreprise.setLogo(dto.getLogo());
-        entreprise.setTelephone(dto.getTelephone());
         entreprise.setEmail(dto.getEmail());
 
         entrepriseRepository.save(entreprise);

@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface ProprietaireRepository extends JpaRepository<Proprietaire, Long> {
    Proprietaire findProprietaireById(Long id);
 
-   List<Proprietaire> findAllByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrCinContainingIgnoreCase(String query, String query1, String query2);
+    List<Proprietaire> findAllByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrTelephoneContainingIgnoreCase(String query, String query1, String query2);
 }
 

@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.ContratDTO;
+import com.transport.GestionTransport.dtos.ContratDTO;
 import com.transport.GestionTransport.entities.Contrat;
 import com.transport.GestionTransport.entities.Entreprise;
 import com.transport.GestionTransport.entities.Proprietaire;
@@ -94,5 +94,13 @@ public class ContratService {
         if (contrats.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(contrats);
     }
+
+    //affiche les contrats d'un propriétaire
+    public ResponseEntity<?> getContratsByProprietaire(Long proprietaireId) {
+        List<Contrat> contrats = contratRepository.findAllByProprietaireId(proprietaireId);
+        if (contrats.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(contrats);
+    }
+
 }
 

@@ -1,7 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.HoraireTrajetDTO;
-import com.transport.GestionTransport.entities.Entreprise;
+import com.transport.GestionTransport.dtos.HoraireTrajetDTO;
 import com.transport.GestionTransport.entities.HoraireTrajet;
 import com.transport.GestionTransport.repositories.HoraireTrajetRepository;
 import org.springframework.http.ResponseEntity;
@@ -65,5 +64,10 @@ public class HoraireTrajetService {
         List<HoraireTrajet> result = horaireTrajetRepository.findAllByReferenceContainingIgnoreCase(query);
         return result.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(result);
     }
+    public ResponseEntity<?> getHoraireTrajetsByBus(Long busId) {
+        List<HoraireTrajet> horaires = horaireTrajetRepository.findAllByBusId(busId);
+        return horaires.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(horaires);
+    }
+
 }
 

@@ -12,4 +12,6 @@ public interface HoraireTrajetRepository extends JpaRepository<HoraireTrajet, Lo
     HoraireTrajet findHoraireTrajetById(Long id);
 
     List<HoraireTrajet> findAllByReferenceContainingIgnoreCase(String query);
+
+    List<HoraireTrajet> findAllByBusId(Long busId);
 }

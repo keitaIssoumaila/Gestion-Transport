@@ -10,5 +10,5 @@ import java.util.List;
 public interface PaiementRepository extends JpaRepository<Paiement, Long> {
     Paiement findPaiementById(Long id);
 
-    List<Paiement> findAllByReferenceContainingIgnoreCaseOrModePaiementContainingIgnoreCase(String query, String query1);
+    List<Paiement> findAllByModePaiementContainingIgnoreCase(String query);
 }

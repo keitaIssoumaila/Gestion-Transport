@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.controllers;
 
-import com.transport.GestionTransport.ditos.ContratDTO;
+import com.transport.GestionTransport.dtos.ContratDTO;
 import com.transport.GestionTransport.entities.Contrat;
 import com.transport.GestionTransport.services.ContratService;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +47,11 @@ public class ContratController {
     @GetMapping("rechercher")
     public ResponseEntity<?> search(@RequestParam String query) {
         return contratService.searchContrat(query);
+    }
+
+    @GetMapping("/proprietaire/{id}")
+    public ResponseEntity<?> getByProprietaire(@PathVariable Long id) {
+        return contratService.getContratsByProprietaire(id);
     }
 }
 

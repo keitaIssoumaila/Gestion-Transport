@@ -1,8 +1,11 @@
-package com.transport.GestionTransport.ditos;
+package com.transport.GestionTransport.dtos;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,8 +15,7 @@ public class EntrepriseDTO {
     private String nom;
     private String adresse;
     private String logo;
-    private String telephone;
     private String email;
-
+    private List<@Size(min = 8, max = 8) String> telephones;
 }
 

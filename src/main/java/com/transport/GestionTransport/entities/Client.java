@@ -1,11 +1,13 @@
 package com.transport.GestionTransport.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -16,16 +18,19 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String reference;
-    private String name;
-    private Date date;
+    private String nom;
+    private String prenom;
+    private LocalDate dateNaissance;
     private String email;
-    private int phone;
+    @Size(min = 8, max = 8)
+    private String telephone;
 
-    @OneToMany(mappedBy = "client")
-    private List<CompteAbonnement> abonnements;
 
     @OneToMany(mappedBy = "client")
     private List<Paiement> paiements;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Souscription> souscriptions;
+
 }

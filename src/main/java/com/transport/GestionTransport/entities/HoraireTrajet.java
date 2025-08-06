@@ -1,10 +1,13 @@
 package com.transport.GestionTransport.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +22,17 @@ public class HoraireTrajet {
     private Long id;
     private String reference;
     private LocalDate dateDebut;
-    private String heureDebut;
+    private Time heureDebut;
     private LocalDate dateFin;
 
     @OneToMany(mappedBy = "horaireTrajet")
+    @JsonManagedReference
     private List<Trajet> trajets;
+
+    @ManyToOne
+    @JoinColumn(name = "bus_id")
+    @JsonBackReference
+    private Bus bus;
+
+
 }

@@ -1,8 +1,9 @@
 package com.transport.GestionTransport.controllers;
 
-import com.transport.GestionTransport.ditos.ProprietaireDTO;
+import com.transport.GestionTransport.dtos.ProprietaireDTO;
 import com.transport.GestionTransport.entities.Proprietaire;
 import com.transport.GestionTransport.services.ProprietaireService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,27 +25,27 @@ public class ProprietaireController {
         return proprietaireService.getAllProprietaires();
     }
 
-    @GetMapping("/rechercher/{id}")
+    @PostMapping("creer")
+    public ResponseEntity<?> createProprietaire(@Valid @RequestBody ProprietaireDTO proprietaireDTO) {
+        return proprietaireService.createProprietaire(proprietaireDTO);
+    }
+
+    @GetMapping("rechercher/{id}")
     public ResponseEntity<?> getProprietaireById(@PathVariable Long id) {
         return proprietaireService.getProprietaireById(id);
     }
 
-    @PostMapping
-    public ResponseEntity<?> createProprietaire(@RequestBody ProprietaireDTO proprietaireDTO) {
-        return proprietaireService.createProprietaire(proprietaireDTO);
-    }
-
-    @PutMapping("/modifier/{id}")
-    public ResponseEntity<?> editProprietaire(@PathVariable Long id, @RequestBody ProprietaireDTO proprietaireDTO) {
+    @PutMapping("modifier/{id}")
+    public ResponseEntity<?> editProprietaire(@PathVariable Long id, @Valid @RequestBody ProprietaireDTO proprietaireDTO) {
         return proprietaireService.editProprietaire(id, proprietaireDTO);
     }
 
-    @DeleteMapping("/supprimer/{id}")
+    @DeleteMapping("supprimer/{id}")
     public ResponseEntity<?> deleteProprietaire(@PathVariable Long id) {
         return proprietaireService.deleteProprietaire(id);
     }
 
-    @GetMapping("/rechercher")
+    @GetMapping("rechercher")
     public ResponseEntity<?> searchProprietaire(@RequestParam String query) {
         return proprietaireService.searchProprietaire(query);
     }

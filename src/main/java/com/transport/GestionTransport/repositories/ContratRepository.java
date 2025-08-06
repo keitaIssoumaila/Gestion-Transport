@@ -13,5 +13,7 @@ public interface ContratRepository extends JpaRepository<Contrat, Long> {
     List<Contrat> findByProprietaireId(Long proprietaireId);
 
     List<Contrat> findAllByReferenceContainingIgnoreCase(String query);
+
+    List<Contrat> findAllByProprietaireId(Long proprietaireId);
 }
 

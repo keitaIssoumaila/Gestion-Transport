@@ -1,6 +1,8 @@
 package com.transport.GestionTransport.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +20,16 @@ public class Entreprise {
     private String nom;
     private String adresse;
     private String logo;
-    private String telephone;
     private String email;
 
+    @ElementCollection
+    @CollectionTable(name = "entreprise_telephones", joinColumns = @JoinColumn(name = "entreprise_id"))
+    @Column(name = "telephone")
+    private List<@Size(min = 8, max = 8) String> telephones;
+
     @OneToMany(mappedBy = "entreprise")
+    @JsonManagedReference
     private List<Contrat> contrats;
+
+
 }

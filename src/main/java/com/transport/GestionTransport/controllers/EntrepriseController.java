@@ -1,8 +1,9 @@
 package com.transport.GestionTransport.controllers;
 
-import com.transport.GestionTransport.ditos.EntrepriseDTO;
+import com.transport.GestionTransport.dtos.EntrepriseDTO;
 import com.transport.GestionTransport.entities.Entreprise;
 import com.transport.GestionTransport.services.EntrepriseService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,12 @@ public class EntrepriseController {
     }
 
     @PostMapping("creer")
-    public ResponseEntity<?> createEntreprise(@RequestBody EntrepriseDTO dto) {
+    public ResponseEntity<?> createEntreprise(@Valid @RequestBody EntrepriseDTO dto) {
         return entrepriseService.createEntreprise(dto);
     }
 
     @PutMapping("modifier/{id}")
-    public ResponseEntity<?> editEntreprise(@PathVariable Long id, @RequestBody EntrepriseDTO dto) {
+    public ResponseEntity<?> editEntreprise(@PathVariable Long id, @Valid @RequestBody EntrepriseDTO dto) {
         return entrepriseService.editEntreprise(id, dto);
     }
 

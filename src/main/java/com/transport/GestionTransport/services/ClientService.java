@@ -1,8 +1,10 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.ClientDTO;
+import com.transport.GestionTransport.dtos.ClientDTO;
 import com.transport.GestionTransport.entities.Client;
+import com.transport.GestionTransport.entities.Souscription;
 import com.transport.GestionTransport.repositories.ClientRepository;
+import com.transport.GestionTransport.repositories.SouscriptionRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final SouscriptionRepository souscriptionRepository;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, SouscriptionRepository souscriptionRepository) {
         this.clientRepository = clientRepository;
+        this.souscriptionRepository = souscriptionRepository;
     }
 
     public List<Client> getClients() {
@@ -24,17 +28,17 @@ public class ClientService {
     public ResponseEntity<?> createClient(ClientDTO clientDTO) {
         try {
             Client client = new Client();
-            client.setReference(clientDTO.getReference());
-            client.setName(clientDTO.getName());
-            client.setDate(clientDTO.getDate());
+            client.setNom(clientDTO.getNom());
+            client.setPrenom(clientDTO.getPrenom());
+            client.setDateNaissance(clientDTO.getDateNaissance());
             client.setEmail(clientDTO.getEmail());
-            client.setPhone(clientDTO.getPhone());
+            client.setTelephone(clientDTO.getTelephone());
 
             clientRepository.save(client);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok("Client créé avec succès");
 
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(" Erreur lors de la création du client : " + e.getMessage());
+            return ResponseEntity.status(500).body("Erreur lors de la création du client : " + e.getMessage());
         }
     }
 
@@ -42,44 +46,48 @@ public class ClientService {
         Client client = clientRepository.findById(id).orElse(null);
         if (client == null) {
             return ResponseEntity.notFound().build();
-        } else {
-            client.setReference(clientDTO.getReference());
-            client.setName(clientDTO.getName());
-            client.setDate(clientDTO.getDate());
-            client.setEmail(clientDTO.getEmail());
-            client.setPhone(clientDTO.getPhone());
-
-            clientRepository.save(client);
-            return ResponseEntity.ok().build();
         }
+
+        client.setNom(clientDTO.getNom());
+        client.setPrenom(clientDTO.getPrenom());
+        client.setDateNaissance(clientDTO.getDateNaissance());
+        client.setEmail(clientDTO.getEmail());
+        client.setTelephone(clientDTO.getTelephone());
+
+        clientRepository.save(client);
+        return ResponseEntity.ok("Client modifié avec succès");
     }
 
     public ResponseEntity<?> deleteClient(Long id) {
         Client client = clientRepository.findById(id).orElse(null);
         if (client == null) {
             return ResponseEntity.notFound().build();
-        } else {
-            clientRepository.delete(client);
-            return ResponseEntity.ok().build();
         }
+
+        clientRepository.delete(client);
+        return ResponseEntity.ok("Client supprimé avec succès");
     }
 
     public ResponseEntity<?> searchClient(String query) {
-        List<Client> clients = clientRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(query, query);
+        List<Client> clients = clientRepository
+                .findByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrTelephoneContainingIgnoreCase(query, query, query);
+
         if (clients.isEmpty()) {
             return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(clients);
         }
+        return ResponseEntity.ok(clients);
     }
 
     public ResponseEntity<?> getClientById(Long id) {
         Client client = clientRepository.findById(id).orElse(null);
         if (client == null) {
             return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(client);
         }
+
+        // Chargement explicite des souscriptions (si LAZY)
+        List<Souscription> souscriptions = souscriptionRepository.findByClientId(id);
+        client.setSouscriptions(souscriptions);
+
+        return ResponseEntity.ok(client);
     }
 }
-

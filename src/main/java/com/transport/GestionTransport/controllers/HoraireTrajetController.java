@@ -1,6 +1,5 @@
 package com.transport.GestionTransport.controllers;
-import com.transport.GestionTransport.ditos.HoraireTrajetDTO;
-import com.transport.GestionTransport.entities.Bus;
+import com.transport.GestionTransport.dtos.HoraireTrajetDTO;
 import com.transport.GestionTransport.entities.HoraireTrajet;
 import com.transport.GestionTransport.services.HoraireTrajetService;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class HoraireTrajetController {
     }
 
     @GetMapping
-    public List<HoraireTrajet> getHoraireTrajet(){ return getHoraireTrajet();}
+    public List<HoraireTrajet> getHoraireTrajet(){ return horaireTrajetService.getAllHoraireTrajet();}
 
     @PostMapping("creer")
     public ResponseEntity<?> createHoraireTrajet(@RequestBody HoraireTrajetDTO dto) {
@@ -45,5 +44,10 @@ public class HoraireTrajetController {
     @GetMapping("rechercher")
     public ResponseEntity<?> searchHoraireTrajet(@RequestParam String query) {
         return horaireTrajetService.searchHoraireTrajet(query);
+    }
+
+    @GetMapping("/horaire-trajet/bus/{busId}")
+    public ResponseEntity<?> getByBus(@PathVariable Long busId) {
+        return horaireTrajetService.getHoraireTrajetsByBus(busId);
     }
 }

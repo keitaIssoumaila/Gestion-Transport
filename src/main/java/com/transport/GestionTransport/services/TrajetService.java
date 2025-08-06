@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.TrajetDTO;
+import com.transport.GestionTransport.dtos.TrajetDTO;
 import com.transport.GestionTransport.entities.HoraireTrajet;
 import com.transport.GestionTransport.entities.Trajet;
 import com.transport.GestionTransport.repositories.HoraireTrajetRepository;
@@ -8,6 +8,7 @@ import com.transport.GestionTransport.repositories.TrajetRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,7 +36,6 @@ public class TrajetService {
 
     public ResponseEntity<?> createTrajet(TrajetDTO trajetDTO) {
         Trajet trajet = new Trajet();
-        trajet.setReference(trajetDTO.getReference());
         trajet.setNom(trajetDTO.getNom());
         trajet.setDate(trajetDTO.getDate());
         trajet.setPointDepart(trajetDTO.getPointDepart());
@@ -56,8 +56,6 @@ public class TrajetService {
         if (trajet == null) {
             return ResponseEntity.notFound().build();
         }
-
-        trajet.setReference(trajetDTO.getReference());
         trajet.setNom(trajetDTO.getNom());
         trajet.setDate(trajetDTO.getDate());
         trajet.setPointDepart(trajetDTO.getPointDepart());
@@ -83,11 +81,21 @@ public class TrajetService {
 
     public ResponseEntity<?> searchTrajet(String query) {
         List<Trajet> trajets = trajetRepository
-                .findAllByNomContainingIgnoreCaseOrReferenceContainingIgnoreCaseOrPointDepartContainingIgnoreCase(query, query, query);
+                .findAllByNomContainingIgnoreCaseOrPointDepartContainingIgnoreCase(query, query);
         if (trajets.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(trajets);
     }
+
+    public List<Trajet> getTrajetsByDate(LocalDate date) {
+        return trajetRepository.findAllByDate(date);
+    }
+
+    public List<Trajet> getUpcomingTrajets() {
+        return trajetRepository.findByDateAfter(LocalDate.now());
+    }
+
+
 }
 

@@ -10,5 +10,4 @@ import java.util.List;
 public interface BusRepository extends JpaRepository <Bus, Long> {
     Bus findBusById(Long id);
     List<Bus> findByMatriculeContainingIgnoreCase(String query);
-
 }

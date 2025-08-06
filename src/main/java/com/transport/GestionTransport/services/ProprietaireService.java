@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.ProprietaireDTO;
+import com.transport.GestionTransport.dtos.ProprietaireDTO;
 import com.transport.GestionTransport.entities.Proprietaire;
 import com.transport.GestionTransport.repositories.ProprietaireRepository;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +31,11 @@ public class ProprietaireService {
 
     public ResponseEntity<?> createProprietaire(ProprietaireDTO proprietaireDTO) {
         Proprietaire proprietaire = new Proprietaire();
-        proprietaire.setCin(proprietaireDTO.getCin());
+        proprietaire.setNina(proprietaireDTO.getNina());
         proprietaire.setNom(proprietaireDTO.getNom());
         proprietaire.setPrenom(proprietaireDTO.getPrenom());
         proprietaire.setDateNaissance(proprietaireDTO.getDateNaissance());
+        proprietaire.setTelephone(proprietaireDTO.getTelephone());
         proprietaireRepository.save(proprietaire);
         return ResponseEntity.ok().build();
     }
@@ -44,10 +45,11 @@ public class ProprietaireService {
         if (proprietaire == null) {
             return ResponseEntity.notFound().build();
         }
-        proprietaire.setCin(proprietaireDTO.getCin());
+        proprietaire.setNina(proprietaireDTO.getNina());
         proprietaire.setNom(proprietaireDTO.getNom());
         proprietaire.setPrenom(proprietaireDTO.getPrenom());
         proprietaire.setDateNaissance(proprietaireDTO.getDateNaissance());
+        proprietaire.setTelephone(proprietaireDTO.getTelephone());
         proprietaireRepository.save(proprietaire);
         return ResponseEntity.ok().build();
     }
@@ -63,7 +65,7 @@ public class ProprietaireService {
 
     public ResponseEntity<?> searchProprietaire(String query) {
         List<Proprietaire> proprietaires = proprietaireRepository
-                .findAllByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrCinContainingIgnoreCase(query, query, query);
+                .findAllByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrTelephoneContainingIgnoreCase(query, query, query);
         if (proprietaires.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

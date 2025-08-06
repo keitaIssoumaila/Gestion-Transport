@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.BusDTO;
+import com.transport.GestionTransport.dtos.BusDTO;
 import com.transport.GestionTransport.entities.Bus;
 import com.transport.GestionTransport.entities.Proprietaire;
 import com.transport.GestionTransport.repositories.BusRepository;
@@ -85,11 +85,11 @@ public class BusService {
     }
 
     public ResponseEntity<?> searchBus(String query) {
-        List<Bus> busList = busRepository.findByMatriculeContainingIgnoreCase(query);
-        if (busList.isEmpty()) {
+        List<Bus> bus = busRepository.findByMatriculeContainingIgnoreCase(query);
+        if (bus.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.ok(busList);
+            return ResponseEntity.ok(bus);
         }
     }
 
@@ -102,4 +102,3 @@ public class BusService {
         }
     }
 }
-

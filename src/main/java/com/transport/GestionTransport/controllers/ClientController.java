@@ -1,8 +1,9 @@
 package com.transport.GestionTransport.controllers;
 
-import com.transport.GestionTransport.ditos.ClientDTO;
+import com.transport.GestionTransport.dtos.ClientDTO;
 import com.transport.GestionTransport.entities.Client;
 import com.transport.GestionTransport.services.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +31,12 @@ public class ClientController {
     }
 
     @PostMapping(path = "creer")
-    public ResponseEntity<?> createClient(@RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<?> createClient(@Valid @RequestBody ClientDTO clientDTO) {
         return clientService.createClient(clientDTO);
     }
 
     @PutMapping(path = "modifier/{id}")
-    public ResponseEntity<?> editClient(@RequestBody ClientDTO clientDTO, @PathVariable Long id) {
+    public ResponseEntity<?> editClient(@Valid @RequestBody ClientDTO clientDTO, @PathVariable Long id) {
         return clientService.editClient(clientDTO, id);
     }
 

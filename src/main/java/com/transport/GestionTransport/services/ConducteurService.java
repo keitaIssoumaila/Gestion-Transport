@@ -1,6 +1,6 @@
 package com.transport.GestionTransport.services;
 
-import com.transport.GestionTransport.ditos.ConducteurDTO;
+import com.transport.GestionTransport.dtos.ConducteurDTO;
 import com.transport.GestionTransport.entities.Bus;
 import com.transport.GestionTransport.entities.Conducteur;
 import com.transport.GestionTransport.repositories.BusRepository;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
 public class ConducteurService {
 
@@ -32,6 +31,7 @@ public class ConducteurService {
         Conducteur conducteur = new Conducteur();
         conducteur.setNom(dto.getNom());
         conducteur.setPrenom(dto.getPrenom());
+        conducteur.setNina(dto.getNina());
         conducteur.setDateNaissance(dto.getDateNaissance());
         conducteur.setTelephone(dto.getTelephone());
         conducteur.setBus(bus);
@@ -46,6 +46,7 @@ public class ConducteurService {
 
         conducteur.setNom(dto.getNom());
         conducteur.setPrenom(dto.getPrenom());
+        conducteur.setNina(dto.getNina());
         conducteur.setDateNaissance(dto.getDateNaissance());
         conducteur.setTelephone(dto.getTelephone());
 
@@ -78,9 +79,21 @@ public class ConducteurService {
 
     public ResponseEntity<?> searchConducteur(String query) {
         List<Conducteur> conducteurs = conducteurRepository
-                .findAllByNomContainingIgnoreCaseOrPrenomContainingIgnoreCase(query, query);
+                .findAllByNomContainingIgnoreCaseOrPrenomContainingIgnoreCaseOrTelephoneContainingIgnoreCase(query, query, query);
         if (conducteurs.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(conducteurs);
     }
-}
 
+    public ResponseEntity<?> getConducteurByBusId(Long busId) {
+        Conducteur conducteur = conducteurRepository.findFirstByBusId(busId);
+        if (conducteur == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(conducteur);
+    }
+
+    public ResponseEntity<?> getConducteursByBusId(Long busId) {
+        List<Conducteur> conducteurs = conducteurRepository.findAllByBusId(busId);
+        if (conducteurs.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(conducteurs);
+    }
+
+}
