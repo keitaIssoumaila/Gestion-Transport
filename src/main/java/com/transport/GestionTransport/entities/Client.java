@@ -29,8 +29,16 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<Paiement> paiements;
 
+    @ManyToOne
+    @JoinColumn(name = "horaire_trajet_id")
+    private HoraireTrajet horaireTrajet;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Souscription> souscriptions;
+
+    @ManyToOne
+    @JoinColumn(name = "trajet_id")
+    private Trajet trajet;
 
 }

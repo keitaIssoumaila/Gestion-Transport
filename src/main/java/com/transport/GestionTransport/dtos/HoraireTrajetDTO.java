@@ -13,9 +13,9 @@ import java.time.LocalDate;
 public class HoraireTrajetDTO {
     private Long id;
     private String reference;
-    private LocalDate dateDebut;
-    private Time heureDebut;
-    private LocalDate dateFin;
+    private Time heureDepart;
+    private Time heureArriver;
+    private int placeRestantes;
     private Long busId;
 }
 

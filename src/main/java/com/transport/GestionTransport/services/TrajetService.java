@@ -37,7 +37,7 @@ public class TrajetService {
     public ResponseEntity<?> createTrajet(TrajetDTO trajetDTO) {
         Trajet trajet = new Trajet();
         trajet.setNom(trajetDTO.getNom());
-        trajet.setDate(trajetDTO.getDate());
+        trajet.setMontant(trajetDTO.getMontant());
         trajet.setPointDepart(trajetDTO.getPointDepart());
         trajet.setPointArriver(trajetDTO.getPointArriver());
 
@@ -57,7 +57,7 @@ public class TrajetService {
             return ResponseEntity.notFound().build();
         }
         trajet.setNom(trajetDTO.getNom());
-        trajet.setDate(trajetDTO.getDate());
+        trajet.setMontant(trajetDTO.getMontant());
         trajet.setPointDepart(trajetDTO.getPointDepart());
         trajet.setPointArriver(trajetDTO.getPointArriver());
 
@@ -87,15 +87,6 @@ public class TrajetService {
         }
         return ResponseEntity.ok(trajets);
     }
-
-    public List<Trajet> getTrajetsByDate(LocalDate date) {
-        return trajetRepository.findAllByDate(date);
-    }
-
-    public List<Trajet> getUpcomingTrajets() {
-        return trajetRepository.findByDateAfter(LocalDate.now());
-    }
-
 
 }
 

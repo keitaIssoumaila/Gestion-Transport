@@ -11,4 +11,6 @@ public interface PaiementRepository extends JpaRepository<Paiement, Long> {
     Paiement findPaiementById(Long id);
 
     List<Paiement> findAllByModePaiementContainingIgnoreCase(String query);
+
+    List<Paiement> findByClientIdOrderByDatePaiementDesc(Long id);
 }

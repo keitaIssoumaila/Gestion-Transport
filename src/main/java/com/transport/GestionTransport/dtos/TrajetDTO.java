@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class TrajetDTO {
     private Long id;
     private String nom;
-    private LocalDate date;
+    private double montant;
     private String pointDepart;
     private String pointArriver;
     private Long horaireTrajetId;

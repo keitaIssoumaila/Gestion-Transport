@@ -15,7 +15,7 @@ public class Paiement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime date;
+    private LocalDateTime datePaiement;
     private Double montant;
     private String modePaiement;
 

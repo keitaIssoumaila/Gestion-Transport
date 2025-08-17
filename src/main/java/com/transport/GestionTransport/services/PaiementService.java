@@ -66,7 +66,7 @@ public class PaiementService {
         }
 
         Paiement paiement = new Paiement();
-        paiement.setDate(paiementDTO.getDate());
+        paiement.setDatePaiement(paiementDTO.getDatePaiement());
         paiement.setMontant(paiementDTO.getMontant());
         paiement.setModePaiement(paiementDTO.getModePaiement());
         paiement.setClient(client);
@@ -89,7 +89,7 @@ public class PaiementService {
             return ResponseEntity.badRequest().body("Souscription non trouvée");
         }
 
-        paiement.setDate(paiementDTO.getDate());
+        paiement.setDatePaiement(paiementDTO.getDatePaiement());
         paiement.setMontant(paiementDTO.getMontant());
         paiement.setModePaiement(paiementDTO.getModePaiement());
         paiement.setSouscription(souscription); // 🔄 mise à jour
@@ -154,7 +154,7 @@ public class PaiementService {
             }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            document.add(new Paragraph("Date : " + paiement.getDate().format(formatter), fontNormal));
+            document.add(new Paragraph("Date : " + paiement.getDatePaiement().format(formatter), fontNormal));
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("Merci pour votre paiement.", fontNormal));

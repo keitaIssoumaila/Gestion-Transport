@@ -15,7 +15,6 @@ public class Souscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String reference;
     private LocalDate date; // date de souscription
     private String statut;  // Actif, Expiré, Suspendu, etc.

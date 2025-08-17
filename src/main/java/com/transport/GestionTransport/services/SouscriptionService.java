@@ -15,6 +15,9 @@ import java.util.List;
 
 @Service
 public class SouscriptionService {
+    @Autowired
+    private RecuService recuService;
+
 
     @Autowired
     private ClientRepository clientRepository;
@@ -56,9 +59,11 @@ public class SouscriptionService {
         paiement.setSouscription(souscription);
         paiement.setMontant(offre.getMontant());
         paiement.setModePaiement(dto.getModePaiement());
-        paiement.setDate(LocalDateTime.now());
+        paiement.setDatePaiement(LocalDateTime.now());
 
         paiementRepository.save(paiement);
+        // Générer & imprimer automatiquement le ticket de souscription
+        recuService.genererTicketSouscription(client, souscription, paiement);
 
         // ✅ DTO enrichi
         SouscriptionResponseDTO response = new SouscriptionResponseDTO();

@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,18 +19,21 @@ public class HoraireTrajet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String reference;
-    private LocalDate dateDebut;
-    private Time heureDebut;
-    private LocalDate dateFin;
+    private Time heureDepart;
+    private Time heureArriver;
+    private int placesRestantes;
 
-    @OneToMany(mappedBy = "horaireTrajet")
-    @JsonManagedReference
-    private List<Trajet> trajets;
+    @ManyToOne
+    @JoinColumn(name = "trajet_id")
+    private Trajet trajet;
 
     @ManyToOne
     @JoinColumn(name = "bus_id")
     @JsonBackReference
     private Bus bus;
 
+    @OneToMany(mappedBy = "horaireTrajet")
+    @JsonBackReference
+    private List<Client> clients;
 
 }

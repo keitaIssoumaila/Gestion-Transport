@@ -14,8 +14,5 @@ public interface TrajetRepository extends JpaRepository<Trajet, Long> {
 
     List<Trajet> findAllByNomContainingIgnoreCaseOrPointDepartContainingIgnoreCase(String query, String query1);
 
-    List<Trajet> findAllByDate(LocalDate date);
-
-    List<Trajet> findByDateAfter(LocalDate date);
 }
 

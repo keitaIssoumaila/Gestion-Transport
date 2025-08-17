@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,12 +18,17 @@ public class Trajet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private LocalDate date;
+    private double montant;
     private String pointDepart;
     private String pointArriver;
 
-    @ManyToOne
-    @JoinColumn(name = "horaire_trajet_id")
+    @OneToMany(mappedBy = "trajet")
     @JsonBackReference
-    private HoraireTrajet horaireTrajet;
+    private List<Client> clients;
+
+    @OneToMany(mappedBy = "trajet", cascade = CascadeType.ALL)
+    private List<HoraireTrajet> horaires;
+
+    public void setHoraireTrajet(HoraireTrajet horaire) {
+    }
 }

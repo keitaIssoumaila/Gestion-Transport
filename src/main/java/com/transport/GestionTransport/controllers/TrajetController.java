@@ -50,29 +50,29 @@ public class TrajetController {
     public ResponseEntity<?> searchTrajet(@RequestParam String query) {
         return trajetService.searchTrajet(query);
     }
-    // Endpoint pour récupérer tous les trajets à une date donnée
-    @GetMapping("/par-date")
-    public ResponseEntity<?> getTrajetsByDate(@RequestParam("date") String dateString) {
-        try {
-            LocalDate date = LocalDate.parse(dateString); // Format attendu : YYYY-MM-DD
-            List<Trajet> trajets = trajetService.getTrajetsByDate(date);
-            if (trajets.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity.ok(trajets);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Date invalide. Utilise le format AAAA-MM-JJ.");
-        }
-    }
-
-    // Endpoint pour récupérer les trajets à venir
-    @GetMapping("/futurs")
-    public ResponseEntity<?> getUpcomingTrajets() {
-        List<Trajet> trajets = trajetService.getUpcomingTrajets();
-        if (trajets.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(trajets);
-    }
+//    // Endpoint pour récupérer tous les trajets à une date donnée
+//    @GetMapping("/par-date")
+//    public ResponseEntity<?> getTrajetsByDate(@RequestParam("date") String dateString) {
+//        try {
+//            LocalDate date = LocalDate.parse(dateString); // Format attendu : YYYY-MM-DD
+//            List<Trajet> trajets = trajetService.getTrajetsByDate(date);
+//            if (trajets.isEmpty()) {
+//                return ResponseEntity.noContent().build();
+//            }
+//            return ResponseEntity.ok(trajets);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Date invalide. Utilise le format AAAA-MM-JJ.");
+//        }
+//    }
+//
+//    // Endpoint pour récupérer les trajets à venir
+//    @GetMapping("/futurs")
+//    public ResponseEntity<?> getUpcomingTrajets() {
+//        List<Trajet> trajets = trajetService.getUpcomingTrajets();
+//        if (trajets.isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.ok(trajets);
+//    }
 }
 

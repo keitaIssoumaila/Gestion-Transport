@@ -40,7 +40,7 @@ public class ContratService {
 
         Contrat contrat = new Contrat();
         contrat.setDateContrat(dto.getDateContrat());
-        contrat.setReference(dto.getReference());
+        contrat.setReference("SOUSC-" + System.currentTimeMillis());
         contrat.setProprietaire(proprietaire);
         contrat.setEntreprise(entreprise);
 
@@ -53,7 +53,7 @@ public class ContratService {
         if (contrat == null) return ResponseEntity.notFound().build();
 
         contrat.setDateContrat(dto.getDateContrat());
-        contrat.setReference(dto.getReference());
+        contrat.setReference("SOUSC-" + System.currentTimeMillis());
 
         if (dto.getProprietaireId() != null) {
             Proprietaire proprietaire = proprietaireRepository.findById(dto.getProprietaireId()).orElse(null);

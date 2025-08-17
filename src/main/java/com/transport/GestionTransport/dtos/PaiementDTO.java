@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PaiementDTO {
     private Long id;
-    private LocalDateTime date;
+    private LocalDateTime datePaiement;
     private Double montant;
     private String modePaiement;
     private Long clientId;

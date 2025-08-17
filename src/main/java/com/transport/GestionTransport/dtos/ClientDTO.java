@@ -18,5 +18,9 @@ public class ClientDTO {
     private String email;
     @Size(min = 8, max = 8)
     private String telephone;
+    private Long trajetId;
+    private Long horaireTrajetId;
+    private Long paiementId;
+    private String modePaiement;
 }
 
